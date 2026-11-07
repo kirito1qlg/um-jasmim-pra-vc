@@ -4,52 +4,517 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
     min-height: 100%;
+    width: 100%;
     background: #050914;
 }
 
 body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    background:
-        radial-gradient(ellipse at 50% 100%, #14264a 0%, transparent 60%),
-        linear-gradient(180deg, #050914 0%, #0b1530 100%);
-    color: #f4eee4;
+    color: #F4EEE4;
     font-family: Georgia, serif;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+#app {
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* JARDIM */
+
+.jardim {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at 50% 100%, #14264A, transparent 65%),
+        linear-gradient(#050914, #0B1530);
+    transition: opacity .7s ease;
+}
+
+.jardim.desaparecer {
+    opacity: 0;
+}
+
+.ceu {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.lua {
+    position: absolute;
+    top: 9%;
+    right: 13%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #E7E0C8;
+    box-shadow: 0 0 30px #E7E0C855;
+}
+
+.lua::after {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #050914;
+}
+
+.estrelas {
+    position: absolute;
+    inset: 0;
+}
+
+.estrela {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #E6E9F4;
+    border-radius: 50%;
+    box-shadow: 0 0 7px #DCE8FF;
+    animation: piscar 3s infinite ease-in-out;
+}
+
+@keyframes piscar {
+    0%, 100% { opacity: .25; transform: scale(.7); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* PETALAS CAINDO */
+
+.chuva-petalas {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.petala-caindo {
+    position: absolute;
+    top: -20px;
+    width: 9px;
+    height: 13px;
+    background: #FFFEF5;
+    border-radius: 80% 10% 80% 10%;
+    opacity: .8;
+    animation: cair linear infinite;
+}
+
+@keyframes cair {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: .8; }
+    100% {
+        transform: translateY(110vh) translateX(90px) rotate(500deg);
+        opacity: 0;
+    }
+}
+
+/* FLOR */
+
+.flor-container {
+    position: relative;
+    width: 180px;
+    height: 250px;
+    margin-top: -30px;
+    z-index: 2;
+    animation: surgir 2s ease both;
+}
+
+@keyframes surgir {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.flor {
+    position: absolute;
+    top: 0;
+    left: 35px;
+    width: 110px;
+    height: 110px;
+    border: none;
+    background: transparent;
+    z-index: 3;
+    animation: balancar 4s ease-in-out infinite;
+}
+
+@keyframes balancar {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+.petala {
+    position: absolute;
+    left: 40px;
+    top: 8px;
+    width: 34px;
+    height: 55px;
+    background: linear-gradient(135deg, #FFFFFF, #E6E3D8);
+    border-radius: 70% 70% 45% 45%;
+    transform-origin: 50% 92%;
+    box-shadow: 0 0 12px #FFFFFF55;
+}
+
+.p1 { transform: rotate(0deg) translateY(-25px); }
+.p2 { transform: rotate(72deg) translateY(-25px); }
+.p3 { transform: rotate(144deg) translateY(-25px); }
+.p4 { transform: rotate(216deg) translateY(-25px); }
+.p5 { transform: rotate(288deg) translateY(-25px); }
+
+.miolo {
+    position: absolute;
+    left: 49px;
+    top: 46px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #E8D49A;
+    box-shadow: 0 0 12px #F0DFB5;
+}
+
+.caule {
+    position: absolute;
+    left: 88px;
+    top: 85px;
+    width: 5px;
+    height: 145px;
+    background: linear-gradient(#477C4C, #285A3B);
+    border-radius: 10px;
+}
+
+.folha {
+    position: absolute;
+    width: 55px;
+    height: 25px;
+    background: #477C4C;
+    border: 1px solid #6D9C70;
+    border-radius: 100% 0 100% 0;
+}
+
+.folha1 {
+    left: 35px;
+    top: 155px;
+    transform: rotate(20deg);
+}
+
+.folha2 {
+    left: 90px;
+    top: 185px;
+    transform: rotate(75deg);
+}
+
+/* MENSAGEM DO JARDIM */
+
+.mensagem-jardim {
+    position: relative;
+    z-index: 3;
+    padding: 0 18px;
+    margin-top: -5px;
     text-align: center;
 }
 
-main {
-    width: 100%;
+.mensagem-jardim h1 {
+    color: #F0DFB5;
+    font-size: clamp(27px, 6vw, 38px);
+    font-weight: normal;
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.mensagem-jardim p {
+    color: #C3C8D8;
+    font-size: clamp(13px, 3.5vw, 16px);
+    line-height: 1.8;
+}
+
+.mensagem-jardim span {
+    display: block;
+    margin-top: 18px;
+    color: #E8D49A;
+    font-size: 18px;
+}
+
+.convite {
+    position: relative;
+    z-index: 3;
+    margin: 35px 15px 20px;
+    color: #D5C79E;
+    font-size: 13px;
+    font-style: italic;
+    animation: pulsar 2s infinite;
+}
+
+@keyframes pulsar {
+    0%, 100% { opacity: .5; }
+    50% { opacity: 1; }
+}
+
+/* ENVELOPE */
+
+.tela-envelope {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 18px;
+    padding: 25px;
+    background:
+        radial-gradient(ellipse at center, #172B4B, transparent 70%),
+        #050914;
+    animation: surgir 1s ease;
 }
 
-h1 {
-    color: #f0dfb5;
-    font-size: clamp(28px, 7vw, 44px);
-    font-style: italic;
+.tela-envelope h1 {
+    color: #F5EAD1;
+    font-size: clamp(25px, 6vw, 36px);
     font-weight: normal;
+    font-style: italic;
+    margin-bottom: 65px;
+    text-align: center;
+}
+
+.envelope {
+    position: relative;
+    width: min(320px, 85vw);
+    height: 180px;
+    background: linear-gradient(145deg, #29476B, #172B4B);
+    border: 3px solid #C6A96A;
+    border-radius: 3px;
+    box-shadow: 0 0 45px #C6A96A33;
+    transition: transform .3s;
+}
+
+.envelope:hover {
+    transform: scale(1.04);
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, transparent 49%, #203B61 50%);
+    clip-path: polygon(0 0, 100% 0, 50% 75%);
+}
+
+.selo {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #D5B56E;
+    color: #713D43;
+    border: 2px solid #F8E4AD;
+    font-size: 28px;
+}
+
+.tela-envelope p {
+    color: #C5CDE0;
+    margin-top: 35px;
+    font-style: italic;
+}
+
+/* CARTA */
+
+.tela-carta {
+    min-height: 100vh;
+    padding: 25px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at center, #172B4B, transparent 75%),
+        #050914;
+    animation: surgir 1s ease;
+}
+
+.carta {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    padding: 35px 22px;
+    text-align: center;
+    color: #39465B;
+    background: #F2E9D8;
+    border: 3px solid #C8AD7A;
+    box-shadow: 0 0 35px #C8AD7A44;
+    animation: surgir 1s ease;
+}
+
+.carta h1 {
+    color: #34445B;
+    font-size: clamp(23px, 5vw, 32px);
+    font-weight: normal;
+    font-style: italic;
     margin-bottom: 18px;
 }
 
-p {
-    color: #c3c8d8;
-    font-size: clamp(14px, 4vw, 18px);
-    line-height: 1.7;
+.linha-dourada {
+    width: 55%;
+    height: 1px;
+    margin: 18px auto;
+    background: #C5A66B;
 }
 
+.poema {
+    white-space: pre-line;
+    font-size: clamp(13px, 3.5vw, 16px);
+    font-style: italic;
+    line-height: 1.8;
+    color: #39465B;
+    margin: 20px auto;
+}
+
+.assinatura {
+    color: #9C7545;
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 22px;
+}
+
+.carta small {
+    display: block;
+    margin-top: 12px;
+    color: #657A83;
+}
+
+.botao-final {
+    display: block;
+    margin: 25px auto 0;
+    padding: 12px 18px;
+    border: 1px solid #B89B60;
+    border-radius: 25px;
+    background: transparent;
+    color: #80613B;
+    font-size: 13px;
+    transition: background .3s, color .3s;
+}
+
+.botao-final:hover {
+    background: #B89B60;
+    color: white;
+}
+
+/* ENCERRAMENTO CINEMATOGRAFICO */
+
+.tela-final {
+    position: relative;
+    min-height: 100vh;
+    padding: 40px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at center, #14264A, transparent 75%),
+        #050914;
+    animation: escurecer 2s ease;
+}
+
+@keyframes escurecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.ceu-final {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.tela-final h2 {
+    position: relative;
+    z-index: 2;
+    color: #D7C69F;
+    font-size: clamp(18px, 4vw, 25px);
+    font-style: italic;
+    font-weight: normal;
+    margin-bottom: 45px;
+    animation: surgir 2s ease;
+}
+
+.mensagem-final {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+    color: #F4EEE4;
+    font-size: clamp(21px, 5vw, 30px);
+    font-style: italic;
+    line-height: 1.7;
+    min-height: 180px;
+}
+
+.dedicatoria {
+    position: relative;
+    z-index: 2;
+    margin-top: 35px;
+    transition: opacity 2s ease;
+}
+
+.dedicatoria h1 {
+    color: #E0C995;
+    font-size: clamp(21px, 5vw, 29px);
+    font-weight: normal;
+    font-style: italic;
+    margin: 20px 0;
+    animation: pulsar 3s infinite;
+}
+
+.dedicatoria p {
+    color: #BFC8D8;
+    font-size: 15px;
+    font-style: italic;
+}
+
+/* CELULARES */
+
 @media (max-width: 480px) {
-    main {
-        padding: 24px 16px;
+    .lua {
+        width: 55px;
+        height: 55px;
+        right: 10%;
     }
 
-    h1 {
-        max-width: 340px;
+    .lua::after {
+        width: 52px;
+        height: 52px;
+        left: 16px;
+        top: -9px;
+    }
+
+    .carta {
+        padding: 25px 15px;
+    }
+
+    .poema {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .mensagem-final {
+        font-size: 22px;
     }
 }
